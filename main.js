@@ -1,5 +1,5 @@
 let teams = [
-    'arsenan', 'barca', 'chelsea', 'dortmund', 'liverpool', 'mu', 'psg', 'real'
+    'arsenan', 'barca', 'chelsea', 'dortmund', 'liverpool', 'mu', 'psg', 'real', 'fc-bayern', 'juventus'
 ], numberOfplayers = 2, btnPlay = document.getElementById('btn-play');
 
 renderTeams(teams, numberOfplayers);
@@ -21,8 +21,12 @@ function renderTeams (teams, numberOfplayers) {
             card = '';
     
         teams.forEach((team, index) => {
+            let customStyle = '';
+
+            if (['juventus', 'fc-bayern'].includes(team)) customStyle = 'background: white';
+
             card += `
-            <div class="team__fc" data-${player}-index="${index}" data-team="${team}">
+            <div class="team__fc" data-${player}-index="${index}" data-team="${team}" style="${customStyle}">
                 <img src="./img-teams/${team}.png" alt="">
             </div>
                 `;

@@ -52,7 +52,7 @@ function roll(player) {
                 previousDOM.classList.remove('active');
             }
 
-            playSound("./sounds/ting.wav");
+            playSound("./sounds/ting.mp3");
 
             teamFC[0].classList.add("active");
             previousDOM = teamFC[0];
@@ -63,7 +63,7 @@ function roll(player) {
 
 function playSound(src) {
     let sound = document.createElement('audio'); 
-    
+
     sound.src = src;
     sound.play();
 };

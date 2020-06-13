@@ -1,8 +1,14 @@
 const DELAY_TIME = 200; // 200ms
+
 let teams = [ 'arsenan', 'barca', 'chelsea', 'dortmund', 'liverpool', 'mu', 'psg', 'real', 'fc-bayern', 'juventus'], 
-    numberOfplayers = 2, btnPlay = document.getElementById('btn-play');
+    numberOfplayers = 2, btnPlay = document.getElementById('btn-play'),
+    memoryUsedDOM = document.getElementById('memory-used');
 
 renderTeams(teams, numberOfplayers);
+
+setInterval(() => {
+    memoryUsedDOM.innerText = getMemoryUsedInMB();
+}, 200);
 
 btnPlay.addEventListener('click', () => {
     // Refesh
@@ -66,4 +72,12 @@ function playSound(src) {
 
     sound.src = src;
     sound.play();
-};
+}
+
+function getMemoryUsedInMB (log = false) {
+    let memory = 'Memory used: ' + (window.performance.memory.usedJSHeapSize / 1024 / 1024).toFixed(3) + 'MB';
+
+    if (log) console.log(memory);
+
+    return memory;
+}

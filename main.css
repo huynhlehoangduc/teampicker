@@ -13,6 +13,7 @@ p, h1, h2 {
 .container {
     display: flex;
     justify-content: center;
+    width: 100%;
 }
 
 .team {
@@ -52,7 +53,6 @@ footer {
     cursor: pointer;
     /* font-weight: 900; */
     font-size: 24px;
-}
 }
 
 .btn-play:hover {
@@ -95,4 +95,43 @@ footer {
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
     background: radial-gradient(#c4ff36bf, transparent, transparent);
+}
+
+/* // Extra small devices (portrait phones, less than 576px) */
+@media screen and (max-width: 991.98px) {
+    .container {width: 100%;}
+    .team {
+        margin: 0;
+        flex-grow: 1;
+        height: auto;
+        padding-bottom: 60px;
+    }
+    .team__fc {
+        height: 50px;
+        width: 50px;
+    }
+    .team__banner {
+        margin: 0;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 48px;
+        font-size: 24px;
+    }
+    .team__banner::after {
+        content: '';
+        position: absolute;
+        height: 24px;
+        width: 100%;
+        left: 0;
+        border-radius: 50%;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -ms-border-radius: 50%;
+        -o-border-radius: 50%;
+        background: radial-gradient(#c4ff36bf, transparent, transparent);
+    }
+    footer {
+        position: relative;
+    }
 }

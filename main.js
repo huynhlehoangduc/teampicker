@@ -1,4 +1,9 @@
-const DELAY_TIME = 200; // 200ms
+// Installation
+const DELAY_TIME = 200,
+    KEY_EFFECT = [
+        32, // space
+        13, // enter
+    ]; // 200ms
 
 let teams = [ 'arsenan', 'barca', 'chelsea', 'dortmund', 'liverpool', 'mu', 'psg', 'real', 'fc-bayern', 'juventus'], 
     numberOfplayers = 2, btnPlay = document.getElementById('btn-play'),
@@ -6,25 +11,36 @@ let teams = [ 'arsenan', 'barca', 'chelsea', 'dortmund', 'liverpool', 'mu', 'psg
 
 window.timeoutStack = [];
 
+// Render View
 renderTeams(teams, numberOfplayers);
 
 setInterval(() => {
     memoryUsedDOM.innerText = getMemoryUsedInMB();
 }, 200);
 
-btnPlay.addEventListener('click', () => {
-    // Refesh
-    clearTimeoutStack();
-    
-    document.querySelectorAll('.team__fc.active').forEach(function (teamFC) {
-        teamFC.classList.remove('active');
-    });
-
-    roll('player-1');
-    setTimeout(function () {
-        roll('player-2');
-    }, 150);
+// Register Events
+btnPlay.addEventListener('click', (e) => {
+    doRoll();
 });
+
+document.addEventListener('keydown', function(e){ 
+    if (KEY_EFFECT.includes(e.keyCode)) {
+        btnPlay.classList.add('active');
+    }
+});
+
+document.addEventListener('keyup', function(e){ 
+    if (KEY_EFFECT.includes(e.keyCode)) {
+        btnPlay.classList.remove('active');
+    }
+});
+
+document.addEventListener('keypress', function (e) {    
+    if (KEY_EFFECT.includes(e.keyCode)) {
+        doRoll();
+    }
+});
+
 
 function renderTeams (teams, numberOfplayers) {
     for (let playerI = 1; playerI <= numberOfplayers; playerI++) {
@@ -46,6 +62,20 @@ function renderTeams (teams, numberOfplayers) {
             playerDOM.innerHTML = card;
         });
     }
+}
+
+function doRoll () {
+    // Refesh
+    clearTimeoutStack();
+        
+    document.querySelectorAll('.team__fc.active').forEach(function (teamFC) {
+        teamFC.classList.remove('active');
+    });
+
+    roll('player-1');
+    setTimeout(function () {
+        roll('player-2');
+    }, 150);
 }
 
 function roll(player) {

@@ -1,6 +1,6 @@
-let teams = [
-    'arsenan', 'barca', 'chelsea', 'dortmund', 'liverpool', 'mu', 'psg', 'real', 'fc-bayern', 'juventus'
-], numberOfplayers = 2, btnPlay = document.getElementById('btn-play');
+const DELAY_TIME = 200; // 200ms
+let teams = [ 'arsenan', 'barca', 'chelsea', 'dortmund', 'liverpool', 'mu', 'psg', 'real', 'fc-bayern', 'juventus'], 
+    numberOfplayers = 2, btnPlay = document.getElementById('btn-play');
 
 renderTeams(teams, numberOfplayers);
 
@@ -11,7 +11,9 @@ btnPlay.addEventListener('click', () => {
     });
 
     roll('player-1');
-    roll('player-2');
+    setTimeout(function () {
+        roll('player-2');
+    }, 150);
 });
 
 function renderTeams (teams, numberOfplayers) {
@@ -50,9 +52,18 @@ function roll(player) {
                 previousDOM.classList.remove('active');
             }
 
+            playSound("./sounds/ting.wav");
+
             teamFC[0].classList.add("active");
             previousDOM = teamFC[0];
             banner.innerText = teamFC[0].getAttribute('data-team').toUpperCase();
-        }, i * 200);
+        }, i * DELAY_TIME);
     }
 }
+
+function playSound(src) {
+    let sound = document.createElement('audio'); 
+    
+    sound.src = src;
+    sound.play();
+};

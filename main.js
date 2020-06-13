@@ -4,6 +4,8 @@ let teams = [ 'arsenan', 'barca', 'chelsea', 'dortmund', 'liverpool', 'mu', 'psg
     numberOfplayers = 2, btnPlay = document.getElementById('btn-play'),
     memoryUsedDOM = document.getElementById('memory-used');
 
+window.timeoutStack = [];
+
 renderTeams(teams, numberOfplayers);
 
 setInterval(() => {
@@ -12,6 +14,8 @@ setInterval(() => {
 
 btnPlay.addEventListener('click', () => {
     // Refesh
+    clearTimeoutStack();
+    
     document.querySelectorAll('.team__fc.active').forEach(function (teamFC) {
         teamFC.classList.remove('active');
     });
@@ -53,17 +57,19 @@ function roll(player) {
         let teamIndex = i % teams.length,
             teamFC = document.querySelectorAll(`[data-${player}-index='${teamIndex}']`);
 
-        setTimeout(()=>{        
-            if (previousDOM !== null) {
-                previousDOM.classList.remove('active');
-            }
+            window.timeoutStack.push(
+                setTimeout(()=>{        
+                    if (previousDOM !== null) {
+                        previousDOM.classList.remove('active');
+                    }
 
-            playSound("./sounds/ting.mp3");
+                    playSound("./sounds/ting.mp3");
 
-            teamFC[0].classList.add("active");
-            previousDOM = teamFC[0];
-            banner.innerText = teamFC[0].getAttribute('data-team').toUpperCase();
-        }, i * DELAY_TIME);
+                    teamFC[0].classList.add("active");
+                    previousDOM = teamFC[0];
+                    banner.innerText = teamFC[0].getAttribute('data-team').toUpperCase();
+                }, i * DELAY_TIME)
+        );
     }
 }
 
@@ -80,4 +86,10 @@ function getMemoryUsedInMB (log = false) {
     if (log) console.log(memory);
 
     return memory;
+}
+
+function clearTimeoutStack() {
+    window.timeoutStack.forEach((timeoutStack)=> {
+        clearTimeout(timeoutStack);
+    });
 }

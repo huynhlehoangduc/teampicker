@@ -7,7 +7,8 @@ const DELAY_TIME = 200, // 200ms
 
 let teams = [ 'arsenan', 'barca', 'chelsea', 'dortmund', 'liverpool', 'mu', 'psg', 'real', 'fc-bayern', 'juventus'], 
     numberOfplayers = 2, btnPlay = document.getElementById('btn-play'),
-    memoryUsedDOM = document.getElementById('memory-used');
+    memoryUsedDOM = document.getElementById('memory-used'),
+    activeSoundDom = document.getElementById('active_sound');
 
 window.timeoutStack = [];
 
@@ -35,8 +36,10 @@ document.addEventListener('keyup', function(e){
     }
 });
 
-document.addEventListener('keypress', function (e) {    
+document.addEventListener('keyup', function (e) {    
     if (KEY_EFFECT.includes(e.keyCode)) {
+        console.log('Do roll! + key code: ' + e.keyCode);
+        console.log(e);
         doRoll();
     }
 });
@@ -88,17 +91,22 @@ function roll(player) {
             teamFC = document.querySelectorAll(`[data-${player}-index='${teamIndex}']`);
 
             window.timeoutStack.push(
-                setTimeout(()=>{        
-                    if (previousDOM !== null) {
-                        previousDOM.classList.remove('active');
-                    }
-
-                    playSound("./sounds/ting.mp3");
-
+                setTimeout(()=>{      
+                    // Check sound active then play sound
+                    if (activeSoundDom.checked) playSound("./sounds/ting.mp3");
+  
+                    // Remove active for previous roll
+                    if (previousDOM !== null) previousDOM.classList.remove('active');
+                    // Add class active for rolling now
                     teamFC[0].classList.add("active");
+
+                    // Set for previous DOM
                     previousDOM = teamFC[0];
+
+                    // Set display text
                     banner.innerText = teamFC[0].getAttribute('data-team').toUpperCase();
-                }, i * DELAY_TIME)
+                }, 
+                i * DELAY_TIME)
         );
     }
 }

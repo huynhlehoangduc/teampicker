@@ -1,9 +1,9 @@
 // Installation
-const DELAY_TIME = 200,
+const DELAY_TIME = 200, // 200ms
     KEY_EFFECT = [
         32, // space
         13, // enter
-    ]; // 200ms
+    ];
 
 let teams = [ 'arsenan', 'barca', 'chelsea', 'dortmund', 'liverpool', 'mu', 'psg', 'real', 'fc-bayern', 'juventus'], 
     numberOfplayers = 2, btnPlay = document.getElementById('btn-play'),
@@ -79,12 +79,12 @@ function doRoll () {
 }
 
 function roll(player) {
-    let number = Math.floor((Math.random() * 20)) + teams.length,
+    let numberOfRolls = Math.floor((Math.random() * teams.length)) + 20,
         previousDOM = null,
         banner = document.getElementById(player + '-banner');
 
-    for (let i = 0; i < number; i++) {
-        let teamIndex = i % teams.length,
+    for (let i = 0; i < numberOfRolls; i++) {
+        let teamIndex = Math.floor((Math.random() * teams.length)),
             teamFC = document.querySelectorAll(`[data-${player}-index='${teamIndex}']`);
 
             window.timeoutStack.push(

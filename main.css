@@ -7,6 +7,10 @@ body {
     background: #18191f;;
 }
 
+header h1 {
+    margin: 10px 0;
+}
+
 p, h1, h2 {
     color: #c4ff36bf;
 }
@@ -108,6 +112,7 @@ footer {
     -ms-border-radius: 50%;
     cursor: pointer;
     -o-border-radius: 50%;
+    /*margin-bottom: 15px*/
 }
 .active-sound-container  .active-sound-btn {
     position: absolute;
@@ -180,5 +185,9 @@ footer {
     }
     footer {
         position: relative;
+    }
+
+    .active-sound-container {
+        margin-bottom: 15px
     }
 }

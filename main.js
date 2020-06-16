@@ -73,9 +73,9 @@ function doRoll () {
     });
 
     roll('player-1');
-    setTimeout(function () {
+    window.timeoutStack.push(setTimeout(function () {
         roll('player-2');
-    }, 150);
+    }, 150));
 }
 
 function roll(player) {

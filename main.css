@@ -42,13 +42,6 @@ p, h1, h2 {
     -o-transform: translateY(150%);
 }
 
-footer {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-}
-
 .btn-play {
     padding: 20px 40px;
     background: #c4ff36bf;
@@ -149,6 +142,10 @@ footer {
     text-shadow: 0 0 15px #c4ff36bf;
 } 
 
+footer {
+    padding: 20px 0 0 0;
+}
+
 /* // Extra small devices (portrait phones, less than 576px) */
 @media screen and (max-width: 991.98px) {
     .container {width: 100%;}
@@ -182,9 +179,6 @@ footer {
         -ms-border-radius: 50%;
         -o-border-radius: 50%;
         background: radial-gradient(#c4ff36bf, transparent, transparent);
-    }
-    footer {
-        position: relative;
     }
 
     .active-sound-container {

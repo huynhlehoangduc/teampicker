@@ -5,19 +5,16 @@ const DELAY_TIME = 200, // 200ms
         13, // enter
     ];
 
-let teams = [ 'arsenan', 'barca', 'chelsea', 'dortmund', 'liverpool', 'mu', 'psg', 'real', 'fc-bayern', 'juventus'], 
+let teams = [ 'arsenal', 'barca', 'chelsea', 'dortmund', 'liverpool', 'mu', 'psg', 'real', 'fc-bayern', 'juventus', 'inter-milan', 'ac-milan', 'ajax-amsterdam'], 
     numberOfplayers = 2, btnPlay = document.getElementById('btn-play'),
     memoryUsedDOM = document.getElementById('memory-used'),
-    activeSoundDom = document.getElementById('active_sound');
+    activeSoundDom = document.getElementById('active_sound'),
+    slowOrFastOfSound = 'slow_down';
 
 window.timeoutStack = [];
 
 // Render View
 renderTeams(teams, numberOfplayers);
-
-setInterval(() => {
-    memoryUsedDOM.innerText = getMemoryUsedInMB();
-}, 200);
 
 // Register Events
 btnPlay.addEventListener('click', (e) => {
@@ -54,7 +51,7 @@ function renderTeams (teams, numberOfplayers) {
         teams.forEach((team, index) => {
             let customStyle = '';
 
-            if (['juventus', 'fc-bayern'].includes(team)) customStyle = 'background: white';
+            if (['juventus', 'fc-bayern', 'inter-milan', 'ac-milan'].includes(team)) customStyle = 'background: white';
 
             card += `
             <div class="team__fc" data-${player}-index="${index}" data-team="${team}" style="${customStyle}">
@@ -86,9 +83,20 @@ function roll(player) {
         previousDOM = null,
         banner = document.getElementById(player + '-banner');
 
+        console.log(player);
+
     for (let i = 0; i < numberOfRolls; i++) {
         let teamIndex = Math.floor((Math.random() * teams.length)),
-            teamFC = document.querySelectorAll(`[data-${player}-index='${teamIndex}']`);
+            teamFC = document.querySelectorAll(`[data-${player}-index='${teamIndex}']`),
+            timeOut = i * DELAY_TIME;
+
+            // @Todo feature slow down here
+            // console.log('Time out default', timeOut);
+
+            // if (slowOrFastOfSound === 'slow_down') {
+            //     timeOut = timeOut + DELAY_TIME * i;
+            //     console.log('Time out slowdown', timeOut);
+            // }
 
             window.timeoutStack.push(
                 setTimeout(()=>{      
@@ -106,7 +114,7 @@ function roll(player) {
                     // Set display text
                     banner.innerText = teamFC[0].getAttribute('data-team').toUpperCase();
                 }, 
-                i * DELAY_TIME)
+                timeOut)
         );
     }
 }

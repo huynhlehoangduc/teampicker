@@ -7,7 +7,12 @@ class Game {
             13, // enter
         ];
 
-        this.teams = [ 'arsenal', 'barca', 'chelsea', 'dortmund', 'liverpool', 'mu', 'psg', 'real', 'fc-bayern', 'juventus', 'inter-milan', 'ac-milan', 'ajax-ams'];
+        this.teams = [ 
+            'arsenal', 'fc-bayern', 'barca', 
+            'juventus', 'chelsea', 'inter-milan', 
+            'dortmund', 'ac-milan', 'liverpool', 'ajax-ams', 
+            'mu', 'real', 'psg',
+        ];
 
         this.numberOfplayers = 2; 
         
@@ -29,7 +34,8 @@ class Game {
             this.teams.forEach((team, index) => {
                 let customStyle = '';
     
-                if (['juventus', 'fc-bayern', 'inter-milan', 'ac-milan'].includes(team)) customStyle = 'background: white';
+                // if (['juventus', 'fc-bayern', 'inter-milan', 'ac-milan'].includes(team)) customStyle = 'background: white';
+                if (index % 2) customStyle = 'background: white';
     
                 card += `
                 <div class="team__fc" data-${player}-index="${index}" data-team="${team}" style="${customStyle}">
@@ -126,19 +132,19 @@ class Game {
         });
 
         document.addEventListener('keydown', (e) => { 
-            if (KEY_EFFECT.includes(e.keyCode)) {
+            if (this.KEY_EFFECT.includes(e.keyCode)) {
                 this.btnPlay.classList.add('active');
             }
         });
 
         document.addEventListener('keyup', (e) => { 
-            if (KEY_EFFECT.includes(e.keyCode)) {
+            if (this.KEY_EFFECT.includes(e.keyCode)) {
                 this.btnPlay.classList.remove('active');
             }
         });
 
         document.addEventListener('keyup', (e) => {    
-            if (KEY_EFFECT.includes(e.keyCode)) {
+            if (this.KEY_EFFECT.includes(e.keyCode)) {
                 this.doRoll();
             }
         });

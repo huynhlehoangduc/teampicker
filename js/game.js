@@ -11,7 +11,7 @@ class Game {
             'arsenal', 'fc-bayern', 'barca', 
             'juventus', 'chelsea', 'inter-milan', 
             'dortmund', 'ac-milan', 'liverpool', 'ajax-ams', 
-            'mu', 'real', 'psg',
+            'mu', 'real', 'psg', 'free-choose'
         ];
 
         this.numberOfplayers = 2; 
